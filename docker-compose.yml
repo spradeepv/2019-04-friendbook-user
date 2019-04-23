@@ -1,0 +1,33 @@
+version: '3.4'
+
+networks:
+  userssvcnet:
+
+volumes:
+  usersdata:
+
+services:
+
+  userssvc:
+    image: spradeepv/users
+    build:
+      dockerfile: Dockerfile
+      context: .
+    networks: 
+      - userssvcnet
+    ports:
+        - "5000"
+    depends_on:
+      - userdb
+
+  userdb:
+    image: mysql:5.5
+    networks:
+      - userssvcnet
+    volumes:
+      - usersdata:/var/lib/mysql
+    ports:
+      - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=test123
+      - MYSQL_DATABASE=users
