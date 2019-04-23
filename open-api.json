@@ -46,7 +46,7 @@
         }, {
           "name" : "start",
           "in" : "query",
-          "description" : "From where to start",
+          "description" : "From where to start. If not specified the default will be 0",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -56,7 +56,7 @@
         }, {
           "name" : "count",
           "in" : "query",
-          "description" : "Number of users to fetch",
+          "description" : "Number of users to fetch. If not specified the default value will be 50",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -94,7 +94,14 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Added User"
+            "description" : "Added User",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
           },
           "400" : {
             "description" : "Invalid input, Object invalid"
@@ -125,7 +132,7 @@
       }
     },
     "/user/auth" : {
-      "put" : {
+      "post" : {
         "summary" : "Authenticates a user",
         "description" : "Authenticates a user",
         "requestBody" : {
@@ -139,7 +146,14 @@
         },
         "responses" : {
           "201" : {
-            "description" : "item created"
+            "description" : "Authenticated",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
           },
           "400" : {
             "description" : "invalid input, object invalid"
