@@ -1,6 +1,6 @@
 from user.db import manager as db_conn
 
-db = db_conn.DBConnection("localhost",
+db = db_conn.DBConnection("userdb",
                           "root",
                           "test123",
                           "users")
