@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from user.db.models import users as models
+from user.common.errors import UserDbException
 
 log = logging.getLogger(__name__)
 
@@ -34,7 +35,7 @@ class DBConnection(object):
             err_msg = 'Exception while creating mysql '
             err_msg += 'session with end point:' + self.connection_url
             log.error("%s: %s", err_msg, e)
-            raise Exception(err_msg)
+            raise UserDbException(err_msg)
 
     def create_users_schema(self):
         ''' To create the users database schema '''
@@ -43,7 +44,7 @@ class DBConnection(object):
         except Exception as e:
             err_msg = 'Exception while creating users schema '
             log.error("%s: %s", err_msg, e)
-            raise Exception(err_msg)
+            raise UserDbException(err_msg)
 
     def delete_user_schema(self):
         ''' To delete the user1 database schema '''
@@ -57,7 +58,7 @@ class DBConnection(object):
             err_msg = "Exception while inserting a row into table :"
             err_msg += table_name
             log.error("%s: %s", err_msg, e)
-            raise Exception(err_msg)
+            raise UserDbException(err_msg)
         self.session.commit()
 
     def add_user(self, user):
@@ -77,8 +78,7 @@ class DBConnection(object):
         except Exception as e:
             err_msg = 'Exception while executing query get_users'
             log.error("%s: %s", err_msg, e)
-            raise Exception(err_msg)
-        print(rows)
+            raise UserDbException(err_msg)
         return rows
 
     def get_user_by_email_id(self, email_id):
@@ -118,7 +118,7 @@ class DBConnection(object):
         except Exception as e:
             err_msg = 'Exception while deleting user1 '
             log.error("%s %s: %s", err_msg, emailId, e)
-            raise Exception(err_msg)
+            raise UserDbException(err_msg)
         self.session.commit()
 
     def update_user(self, user):
