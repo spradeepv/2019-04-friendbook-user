@@ -1,10 +1,11 @@
+from datetime import datetime
 import logging
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from user.db.models import users as models
 from user.common.errors import UserDbException
+from user.db.models import users as models
 
 log = logging.getLogger(__name__)
 
@@ -66,7 +67,8 @@ class DBConnection(object):
             emailId=user["emailId"],
             displayName=user["displayName"],
             password=user["password"],
-            status="ACTIVE"
+            status="ACTIVE",
+            createdAt=datetime.now()
         )
         self._insert_row(user_row, 'users')
         return user
@@ -127,9 +129,10 @@ class DBConnection(object):
             emailId=user["emailId"]).update({'password': user["password"],
                                              'status': user["status"],
                                              'displayName': user[
-                                                 "displayName"]})
+                                                 "displayName"],
+                                             'updatedAt': datetime.now()
+                                             })
         self.session.commit()
-
 
     def close(self):
         ''' To close connection handle '''
@@ -141,3 +144,4 @@ class DBConnection(object):
             self.connection.close()
         if self.engine:
             self.engine.dispose()
+
