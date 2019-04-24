@@ -9,7 +9,6 @@ volumes:
 services:
 
   userssvc:
-    image: spradeepv/users
     build:
       dockerfile: Dockerfile
       context: .
