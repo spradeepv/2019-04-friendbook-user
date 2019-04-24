@@ -1,267 +1,308 @@
 {
-  "openapi" : "3.0.0",
-  "info" : {
-    "title" : "User Management API",
-    "description" : "User Management API",
-    "version" : "1.0.0-oas3"
+  "openapi": "3.0.0",
+  "info": {
+    "title": "User Management API",
+    "description": "User Management API",
+    "version": "1.0.0-oas3"
   },
-  "servers" : [ {
-    "url" : "/"
-  } ],
-  "paths" : {
-    "/user" : {
-      "get" : {
-        "summary" : "Get all users or get a user by specifying his/her email ID or display name or ID",
-        "description" : "Get all users or get a user by specifying his/her email ID or display name or ID",
-        "parameters" : [ {
-          "name" : "emailId",
-          "in" : "query",
-          "description" : "email id of the user to fetch",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "get": {
+        "summary": "Get all users or get a user by specifying his/her email ID or display name or ID",
+        "description": "Get all users or get a user by specifying his/her email ID or display name or ID",
+        "parameters": [
+          {
+            "name": "emailId",
+            "in": "query",
+            "description": "email id of the user to fetch",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "email id of the user to fetch",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "displayName",
+            "in": "query",
+            "description": "email id of the user to fetch",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "From where to start. If not specified the default will be 0",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Number of users to fetch. If not specified the default value will be 50",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
           }
-        }, {
-          "name" : "id",
-          "in" : "query",
-          "description" : "email id of the user to fetch",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "displayName",
-          "in" : "query",
-          "description" : "email id of the user to fetch",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "start",
-          "in" : "query",
-          "description" : "From where to start. If not specified the default will be 0",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer"
-          }
-        }, {
-          "name" : "count",
-          "in" : "query",
-          "description" : "Number of users to fetch. If not specified the default value will be 50",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "List all the users or a single user based on email ID or ID or display name",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "List all the users or a single user based on email ID or ID or display name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "bad input parameter"
+          "400": {
+            "description": "Unknown Error"
+          },
+          "404": {
+            "description": "User/Users not found"
           }
         }
       },
-      "put" : {
-        "summary" : "Adds/Modifies a user",
-        "description" : "Adds/Modifies a user",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/UserDetails"
+      "put": {
+        "summary": "Adds/Modifies a user",
+        "description": "Adds/Modifies a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDetails"
               }
             }
           }
         },
-        "responses" : {
-          "201" : {
-            "description" : "Added User",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/User"
+        "responses": {
+          "201": {
+            "description": "Added User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "Invalid input, Object invalid"
+          "202": {
+            "description": "User Modified",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input, Object invalid"
           }
         }
       },
-      "delete" : {
-        "summary" : "Deletes a user",
-        "description" : "Deletes a user",
-        "parameters" : [ {
-          "name" : "emailId",
-          "in" : "query",
-          "required" : true,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
+      "delete": {
+        "summary": "Deletes a user",
+        "description": "Deletes a user",
+        "parameters": [
+          {
+            "name": "emailId",
+            "in": "query",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           },
-          "404" : {
-            "description" : "User not found"
+          "404": {
+            "description": "User not found"
           }
         }
       }
     },
-    "/user/auth" : {
-      "post" : {
-        "summary" : "Authenticates a user",
-        "description" : "Authenticates a user",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/UserValidation"
+    "/user/auth": {
+      "post": {
+        "summary": "Authenticates a user",
+        "description": "Authenticates a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserValidation"
               }
             }
           }
         },
-        "responses" : {
-          "201" : {
-            "description" : "Authenticated",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/User"
+        "responses": {
+          "200": {
+            "description": "User Authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
           },
-          "400" : {
-            "description" : "invalid input, object invalid"
+          "400": {
+            "description": "invalid input, object invalid"
           },
-          "404" : {
-            "description" : "User not found"
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User not found"
           }
         }
       }
     },
-    "/user/block" : {
-      "put" : {
-        "summary" : "Blocks/Unblocks a user",
-        "description" : "Blocks/Unblocks a user",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Block"
+    "/user/block": {
+      "put": {
+        "summary": "Blocks/Unblocks a user",
+        "description": "Blocks/Unblocks a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Block"
               }
             }
           }
         },
-        "responses" : {
-          "201" : {
-            "description" : "item created"
+        "responses": {
+          "200": {
+            "description": "User Status Changed as requested"
           },
-          "400" : {
-            "description" : "invalid input, object invalid"
+          "400": {
+            "description": "invalid input, object invalid"
           },
-          "404" : {
-            "description" : "User not found"
+          "404": {
+            "description": "User not found"
           }
         }
       }
     }
   },
-  "components" : {
-    "schemas" : {
-      "Users" : {
-        "type" : "array",
-        "items" : {
-          "$ref" : "#/components/schemas/User"
+  "components": {
+    "schemas": {
+      "Users": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/User"
         }
       },
-      "User" : {
-        "required" : [ "displayName", "emailId", "id", "status" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string",
-            "format" : "uuid",
-            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+      "User": {
+        "required": [
+          "displayName",
+          "emailId",
+          "id",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
           },
-          "emailId" : {
-            "type" : "string",
-            "example" : "xyz@abc.com"
+          "emailId": {
+            "type": "string",
+            "example": "xyz@abc.com"
           },
-          "displayName" : {
-            "type" : "string",
-            "example" : "xyz"
+          "displayName": {
+            "type": "string",
+            "example": "xyz"
           },
-          "status" : {
-            "type" : "string",
-            "example" : "Blocked"
+          "status": {
+            "type": "string",
+            "example": "Blocked"
           }
         }
       },
-      "UserDetails" : {
-        "required" : [ "displayName", "emailId", "password" ],
-        "properties" : {
-          "emailId" : {
-            "type" : "string",
-            "example" : "xyz@abc.com"
+      "UserDetails": {
+        "required": [
+          "displayName",
+          "emailId",
+          "password"
+        ],
+        "properties": {
+          "emailId": {
+            "type": "string",
+            "example": "xyz@abc.com"
           },
-          "displayName" : {
-            "type" : "string",
-            "example" : "sdiluwdij"
+          "displayName": {
+            "type": "string",
+            "example": "sdiluwdij"
           },
-          "password" : {
-            "type" : "string",
-            "example" : "408-867-5309"
+          "password": {
+            "type": "string",
+            "example": "408-867-5309"
           }
         }
       },
-      "UserValidation" : {
-        "required" : [ "emailId", "password" ],
-        "properties" : {
-          "emailId" : {
-            "type" : "string",
-            "example" : "xyz@abc.com"
+      "UserValidation": {
+        "required": [
+          "emailId",
+          "password"
+        ],
+        "properties": {
+          "emailId": {
+            "type": "string",
+            "example": "xyz@abc.com"
           },
-          "password" : {
-            "type" : "string",
-            "example" : "408-867-5309"
+          "password": {
+            "type": "string",
+            "example": "408-867-5309"
           }
         }
       },
-      "Block" : {
-        "required" : [ "block", "emailId" ],
-        "properties" : {
-          "emailId" : {
-            "type" : "string",
-            "example" : "xyz@abc.com"
+      "Block": {
+        "required": [
+          "block",
+          "emailId"
+        ],
+        "properties": {
+          "emailId": {
+            "type": "string",
+            "example": "xyz@abc.com"
           },
-          "block" : {
-            "type" : "boolean",
-            "example" : true
+          "block": {
+            "type": "boolean",
+            "example": true
           }
         }
       }
