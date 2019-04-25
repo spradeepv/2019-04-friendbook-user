@@ -1,4 +1,5 @@
 import logging
+import time
 
 from user.db import manager as db_conn
 from user.common.errors import UserNotFoundException, UnauthorizedException
@@ -13,9 +14,21 @@ db = db_conn.DBConnection(DB_HOST,
 
 
 def initialize_db():
-    db.create_session()
-    db.create_users_schema()
-    db.close()
+    count = 0
+    retry = False
+    while !retry:
+        try:
+            db.create_session()
+            db.create_users_schema()
+            retry = False
+        except UserDbException e:
+            count += 1
+            log.error(e)
+            time.sleep(10)
+            if count > 10:
+                return
+        finally:
+            db.close()
 
 
 def create_session():
