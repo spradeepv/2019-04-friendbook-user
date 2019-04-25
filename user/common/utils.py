@@ -21,7 +21,7 @@ def initialize_db():
             db.create_session()
             db.create_users_schema()
             retry = False
-        except UserDbException e:
+        except UserDbException as e:
             count += 1
             log.error(e)
             time.sleep(10)
