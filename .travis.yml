@@ -1,7 +1,4 @@
 dist: xenial
 language: python
 script:
-  - docker-compose build
-  - docker-compose up -d
-  - docker-compose ps
   - ./build.sh

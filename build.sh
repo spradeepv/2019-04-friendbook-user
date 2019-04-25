@@ -1,7 +1,9 @@
 #!/bin/bash
-sleep 10
+docker-compose build
+docker-compose up -d
+sleep 30s
 docker-compose ps
-sleep 10
+sleep 30s
 docker-compose logs userssvc
 svc_status=$(docker-compose ps |  grep "userssvc" | awk '{ print $4}')
 echo $svc_status
