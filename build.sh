@@ -8,6 +8,7 @@ then
    echo "User service is not up"
    exit 1
 fi
+docker-conpose ps
 port=$(docker-compose ps |  grep "userssvc" | awk '{ print $5}' | awk '{split($0,a,":"); print a[3] a[2]}' | awk '{split($0,a,"-"); print a[1]}')
 echo $port
 add_status=$(curl -s -o /dev/null -w "%{http_code}"  -X PUT -X PUT http://localhost:$port/user -H "Content-Type: application/json" -d '{"emailId":"pradeeep@abc.com","displayName":"Pradeep S","password":"test123"}' | grep "202")
