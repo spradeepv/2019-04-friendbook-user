@@ -16,7 +16,7 @@ db = db_conn.DBConnection(DB_HOST,
 def initialize_db():
     count = 0
     retry = False
-    while !retry:
+    while not retry:
         try:
             db.create_session()
             db.create_users_schema()
