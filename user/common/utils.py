@@ -2,7 +2,7 @@ import logging
 import time
 
 from user.db import manager as db_conn
-from user.common.errors import UserNotFoundException, UnauthorizedException
+from user.common.errors import UserNotFoundException, UnauthorizedException, UserDbException
 from user.common.constants import DB_NAME, DB_USER, DB_PASSWORD
 from user.common.config import DB_HOST
 
