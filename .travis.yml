@@ -1,0 +1,3 @@
+dist: xenial
+script:
+  - ./build.sh
