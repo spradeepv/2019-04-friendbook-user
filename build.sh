@@ -1,6 +1,8 @@
 #!/bin/bash
 sleep 10
 docker-compose ps
+sleep 10
+docker-compose logs userssvc
 svc_status=$(docker-compose ps |  grep "userssvc" | awk '{ print $4}')
 echo $svc_status
 if [ "$svc_status" != "Up" ]
