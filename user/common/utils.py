@@ -15,20 +15,19 @@ db = db_conn.DBConnection(DB_HOST,
 
 def initialize_db():
     count = 0
-    retry = False
-    while not retry:
+    retry = True
+    while retry:
         try:
             db.create_session()
             db.create_users_schema()
             retry = False
+            db.close()
         except UserDbException as e:
             count += 1
             log.error(e)
             time.sleep(10)
             if count > 10:
                 return
-        finally:
-            db.close()
 
 
 def create_session():
