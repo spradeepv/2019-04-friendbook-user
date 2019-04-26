@@ -1,3 +1,4 @@
 #!/bin/bash
+docker tag 2019-04-friendbook-user_userssvc $DOCKER_USERNAME/$REPO
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 docker push $DOCKER_USERNAME/$REPO
