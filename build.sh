@@ -31,3 +31,4 @@ curl http://localhost:$port/user
 #  echo "curl request failed."
 #  exit 1
 #fi
+docker images
